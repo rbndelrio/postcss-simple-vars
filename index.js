@@ -125,24 +125,24 @@ module.exports = postcss.plugin('postcss-simple-vars', function (opts) {
 
     css.walk(function (node) {
       if (node.type === 'decl') {
-        if (node.value.toString().indexOf('$') !== -1) {
+        if (node.value?.toString().indexOf('$') > -1) {
           declValue(variables, node, opts, result)
         }
-        if (node.prop.indexOf('$(') !== -1) {
+        if (node.prop?.indexOf('$(') > -1) {
           declProp(variables, node, opts, result)
-        } else if (node.prop[0] === '$') {
+        } else if (node.prop?.[0] === '$') {
           if (!opts.only) definition(variables, node, opts)
         }
       } else if (node.type === 'rule') {
-        if (node.selector.indexOf('$') !== -1) {
+        if (node.selector?.indexOf('$') > -1) {
           ruleSelector(variables, node, opts, result)
         }
       } else if (node.type === 'atrule') {
-        if (node.params && node.params.indexOf('$') !== -1) {
+        if (node.params?.indexOf('$') > -1) {
           atruleParams(variables, node, opts, result)
         }
       } else if (node.type === 'comment') {
-        if (node.text.indexOf('$') !== -1) {
+        if (node.text?.indexOf('$') > -1) {
           comment(variables, node, opts, result)
         }
       }
